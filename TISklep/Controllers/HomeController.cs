@@ -5,18 +5,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-
+using TISklep.DAL;
 
 namespace TISklep.Controllers
 {
     public class HomeController : Controller
     {
-        
+        FilmyContext db;
 
+        public HomeController(FilmyContext db)
+        {
+            this.db = db;
+        }
 
         public IActionResult Index()
         {
-            return View();
+            var kategorie = db.Kategorie.ToList();
+            return View(kategorie);
         }
 
         public IActionResult Privacy()
@@ -24,6 +29,9 @@ namespace TISklep.Controllers
             return View();
         }
 
-        
+        public IActionResult StronyStatyczne(string nazwa)
+        {
+            return View(nazwa);
+        }
     }
 }
