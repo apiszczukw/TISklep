@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TISklep.Models.Kategoria>
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,14 +10,7 @@
 
 </head>
 <body>
-    <header class="menu-bar">
-        <div id="menu">
-            @foreach (var kategoria in Model)
-            {
-                <a href="#" class="menu-link"> @kategoria.Nazwa </a>
-            }
-        </div>
-    </header>
+    @(await Component.InvokeAsync("Menu"))
 
     <div class="main_page">
         <main role="main" class="pb-3">

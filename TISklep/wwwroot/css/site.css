@@ -110,8 +110,13 @@ li a {
 }
 
 .menu-link {
-    padding: 1rem 0;
+    padding: 1rem 0;   
+
     font-size: 1.5rem;
     margin-right: 2rem;
     text-decoration: none;
+}
+
+body {
+    margin: 0;
 }
