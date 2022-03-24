@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TISklep.DAL;
+using TISklep.ViewModels;
 
 namespace TISklep.Controllers
 {
@@ -19,10 +20,25 @@ namespace TISklep.Controllers
 
         public IActionResult ListaFilmow(string nazwaKategorii)
         {
+            KategoriaViewModel vm = new KategoriaViewModel();
+
             var kategoria = db.Kategorie.Include("Filmy").Where(k => k.Nazwa == nazwaKategorii).Single();
             var filmy = kategoria.Filmy.ToList();
+            
 
-            return View(filmy);
+            vm.FilmyKategorii = filmy;
+            vm.Kategoria = kategoria;
+            vm.FilmyTop3Najnowsze = db.Filmy.OrderByDescending(f => f.DataProdukcji).Take(3);
+
+            return View(vm);
+        }
+
+        public IActionResult Szczegoly(int idFilmu)
+        {
+            var kategoria = db.Kategorie.Find(db.Filmy.Find(idFilmu).KategoriaId);
+            var film = db.Filmy.Find(idFilmu);
+
+            return View(film);
         }
 
         public IActionResult Index()
