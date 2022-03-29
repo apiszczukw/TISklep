@@ -27,7 +27,7 @@ namespace TISklep
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<FilmyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("FilmyCS")));
+            services.AddDbContext<FilmyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Test")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
