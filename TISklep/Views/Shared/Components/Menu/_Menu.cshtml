@@ -1,0 +1,12 @@
+﻿@model IEnumerable<TISklep.Models.Kategoria>
+@{
+}
+
+<header class="menu-bar">
+    <div id="menu">
+        @foreach (var kategoria in Model)
+        {
+            <a href="@Url.Action("ListaFilmow", "Filmy", new { nazwaKategorii = kategoria.Nazwa })" class="menu-link"> @kategoria.Nazwa </a>
+        }
+    </div>
+</header>

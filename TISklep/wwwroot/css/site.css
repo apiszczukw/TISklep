@@ -69,3 +69,54 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.stopka {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+    background-color: lightgray;
+}
+
+.main_page {
+    min-height: calc(100vh - 10rem);
+    margin: 0 auto;
+}
+
+.stopka ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li a {
+    display: block;     
+    padding: 20px;
+    text-decoration: none;
+}
+
+.stopka ul li {
+    float: left;
+}
+
+
+
+.menu-bar {
+    height: 6rem;
+    background-color: lightblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-link {
+    padding: 1rem 0;   
+
+    font-size: 1.5rem;
+    margin-right: 2rem;
+    text-decoration: none;
+}
+
+body {
+    margin: 0;
+}

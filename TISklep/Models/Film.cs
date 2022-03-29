@@ -19,7 +19,7 @@ namespace TISklep.Models
         [StringLength(1000)]
         public string Opis { get; set; }
 
-        public decimal Cena { get; set; }
+        public decimal? Cena { get; set; }
 
         public DateTime? DataProdukcji { get; set; }
 

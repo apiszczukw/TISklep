@@ -53,6 +53,12 @@ namespace TISklep
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "StronyStatyczne",
+                    pattern: "info/{nazwa}.html",
+                    defaults: new { controller = "Home", action = "StronyStatyczne" }
+                    );
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });

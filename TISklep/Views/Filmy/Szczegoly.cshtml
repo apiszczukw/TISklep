@@ -1,0 +1,22 @@
+﻿@model TISklep.Models.Film
+@{ 
+    ViewData["Title"] = "Szczegóły";
+}
+
+<table>
+    <tr>
+        <td>
+            <h1>@Model.Kategoria.Nazwa</h1>
+            @await Component.InvokeAsync("FilmyKategorii", new { nazwaKategorii = Model.Kategoria.Nazwa })
+        </td>
+        <td>
+            <ul>
+                <li>Tytuł: @Model.Tytul</li>
+                <li>Reżyser: @Model.Rezyser</li>
+                <li>Opis: @Model.Opis</li>
+                <li>Cena: @Model.Cena zł</li>
+                <li>Data produkcji: @Model.DataProdukcji</li>
+            </ul>
+        </td>
+    </tr>
+</table>
