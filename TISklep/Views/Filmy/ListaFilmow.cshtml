@@ -4,11 +4,12 @@
 }
 
 <table>
-    <tr>
+    <tr class="banner">
         @foreach (var film in Model.FilmyTop3Najnowsze)
         {
-            <td>
+            <td class="film">
                 <h3>@film.Tytul</h3>
+                <img src="~/content/@film.Plakat" />
                 <p>@film.Opis</p>
             </td>
         }

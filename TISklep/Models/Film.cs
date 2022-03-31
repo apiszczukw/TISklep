@@ -27,5 +27,7 @@ namespace TISklep.Models
         public int KategoriaId { get; set; }
 
         public Kategoria Kategoria { get; set; }
+
+        public string Plakat { get; set; }
     }
 }
