@@ -21,7 +21,7 @@ namespace TISklep.Models
 
         public decimal? Cena { get; set; }
 
-        public DateTime? DataProdukcji { get; set; }
+        public DateTime? DataDodania { get; set; }
 
         [ForeignKey("Kategoria")]
         public int KategoriaId { get; set; }

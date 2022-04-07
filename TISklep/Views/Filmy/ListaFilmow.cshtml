@@ -17,12 +17,12 @@
 </table>
 
 <h1>@Model.Kategoria.Nazwa - @Model.Kategoria.Opis</h1>
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>Tytuł filmu</th>
             <th>Reżyser</th>
-            <th>Data produkcji</th>
+            <th>Data dodania</th>
             <th>Cena</th>
         </tr>
     </thead>
@@ -32,7 +32,7 @@
             <tr>
                 <td>@film.Tytul</td>
                 <td>@film.Rezyser</td>
-                <td>@film.DataProdukcji</td>
+                <td>@film.DataDodania</td>
                 <td>@film.Cena</td>
                 <td>
                     <a href="@Url.Action("Szczegoly", "Filmy", new { idFilmu = film.Id })">&#128270;</a>
