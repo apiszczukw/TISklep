@@ -1,0 +1,28 @@
+﻿@model IEnumerable<TISklep.Models.Film>
+
+<h3>Filmy zawierające frazę: @ViewBag.szukanie </h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tytuł filmu</th>
+            <th>Reżyser</th>
+            <th>Data dodania</th>
+            <th>Cena</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var film in Model)
+        {
+            <tr>
+                <td>@film.Tytul</td>
+                <td>@film.Rezyser</td>
+                <td>@film.DataDodania</td>
+                <td>@film.Cena</td>
+                <td>
+                    <a href="@Url.Action("Szczegoly", "Filmy", new { idFilmu = film.Id })">&#128270;</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

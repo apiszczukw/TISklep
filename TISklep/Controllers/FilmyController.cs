@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TISklep.DAL;
+using TISklep.Models;
 using TISklep.ViewModels;
 
 namespace TISklep.Controllers
@@ -81,6 +82,42 @@ namespace TISklep.Controllers
             db.SaveChanges();
 
             return RedirectToAction("WszystkieFilmy");
+        }
+
+
+        [HttpGet]
+        public IActionResult EdytujFilm(int id)
+        {
+            var kategoria = db.Kategorie.Find(db.Filmy.Find(id).KategoriaId);
+            var film = db.Filmy.Where(f => f.Id == id).FirstOrDefault();
+            return View(film);
+        }
+
+        [HttpPost]
+        public IActionResult EdytujFilm(Film film)
+        {
+            var edytowany = db.Filmy.Where(f => f.Id == film.Id).FirstOrDefault();
+            edytowany.Tytul = film.Tytul;
+            edytowany.Rezyser = film.Rezyser;
+            edytowany.Opis = film.Opis;
+            edytowany.Cena = film.Cena;
+            edytowany.DataDodania = film.DataDodania;
+
+            db.SaveChanges();
+
+            return RedirectToAction("Szczegoly", new { idFilmu = film.Id });
+        }
+
+        [HttpPost]
+        public IActionResult Szukaj(string fraza)
+        {
+            var filmy = from f in db.Filmy select f;
+
+            filmy = filmy.Where(f => f.Tytul.ToLower().Contains(fraza.ToLower()));
+            
+            ViewBag.szukanie = fraza;
+
+            return View(filmy.ToList());
         }
     }
 }
