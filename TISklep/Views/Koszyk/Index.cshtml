@@ -1,0 +1,17 @@
+﻿@model IEnumerable<TISklep.Models.CartItem>
+
+
+<table class="table">
+    @foreach (var cartItem in Model)
+    {
+    <tr>
+        <td>@cartItem.Film.Tytul</td>
+        <td>@cartItem.Ilosc</td>
+        <td>@cartItem.Wartosc zł</td>
+    </tr>
+    }
+</table>
+
+<div>
+    Razem: @ViewBag.total zł
+</div>

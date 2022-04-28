@@ -37,6 +37,11 @@
                 <td>
                     <a href="@Url.Action("Szczegoly", "Filmy", new { idFilmu = film.Id })">&#128270;</a>
                 </td>
+                <td>
+                    <a href="@Url.Action("DodajDoKoszyka", "Koszyk", new { idFilmu = film.Id })">
+                        &#128722;
+                    </a>
+                </td>
             </tr>
         }
     </tbody>
