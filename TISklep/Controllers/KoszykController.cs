@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TISklep.DAL;
 using TISklep.Infrastructure;
 using TISklep.Models;
+using TISklep.ViewModels;
 
 namespace TISklep.Controllers
 {
@@ -20,70 +21,31 @@ namespace TISklep.Controllers
 
         public IActionResult Index()
         {
-            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Consts.CartSessionKey);
+            var cart = CartManager.GetItems(HttpContext.Session);
 
-            if (cart == null)
-                cart = new List<CartItem>();
-
-            ViewBag.total = cart.Sum(item => item.Ilosc * item.Film.Cena);
+            ViewBag.total = CartManager.GetCartValue(HttpContext.Session);
 
             return View(cart);
         }
 
         public IActionResult DodajDoKoszyka(int idFilmu)
         {
-            var film = db.Filmy.Find(idFilmu);
-
-            if(SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Consts.CartSessionKey) == null)
-            {
-                List<CartItem> cart = new List<CartItem>();
-                cart.Add(new CartItem()
-                {
-                    Film = film,
-                    Ilosc = 1,
-                    Wartosc = (decimal)film.Cena
-                });
-
-                SessionHelper.SetObjectAsJson(HttpContext.Session, Consts.CartSessionKey, cart);
-            }
-            else
-            {
-                List<CartItem> cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Consts.CartSessionKey);
-
-                int index = GetIndex(idFilmu); 
-
-                if(index != -1)
-                {
-                    cart[index].Ilosc++;
-                }
-                else
-                {
-                    cart.Add(new CartItem()
-                    {
-                        Film = film,
-                        Ilosc = 1,
-                        Wartosc = (decimal)film.Cena
-                    });
-                }
-                SessionHelper.SetObjectAsJson(HttpContext.Session, Consts.CartSessionKey, cart);
-            }
+            CartManager.AddToCart(HttpContext.Session, db, idFilmu);
 
             return RedirectToAction("Index");
         }
 
-        private int GetIndex(int idFilmu)
+        public IActionResult UsunZKoszyka(int id)
         {
-            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Consts.CartSessionKey);
-
-            for (int i = 0; i < cart.Count; i++)
+            var model = new UsuwanieElementuKoszykaViewModel()
             {
-                if(cart[i].Film.Id.Equals(idFilmu))
-                {
-                    return i;
-                }
-            }
+                Id = id,
+                Ilosc = CartManager.RemoveFromCart(HttpContext.Session, id),
+                WartoscKoszyka = CartManager.GetCartValue(HttpContext.Session)
+            };
 
-            return -1;
+            return Json(model);
         }
+
     }
 }
