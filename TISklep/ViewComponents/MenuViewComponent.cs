@@ -18,20 +18,12 @@ namespace TISklep.ViewComponents
             this.db = db;
         }
 
-        int GetCartQuantity()
-        {
-            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, Consts.CartSessionKey);
-
-            if (cart == null) cart = new List<CartItem>();
-
-            return cart.Sum(item => item.Ilosc);
-        }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var kategorie = db.Kategorie.ToList();
 
-            ViewBag.quantity = GetCartQuantity();
+            ViewBag.quantity = CartManager.GetCartQuantity(HttpContext.Session);
 
             return await Task.FromResult((IViewComponentResult)View("_Menu", kategorie));
         }

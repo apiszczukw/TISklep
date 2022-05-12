@@ -55,6 +55,13 @@ namespace TISklep.Infrastructure
             return (decimal)cart.Sum(i => i.Ilosc * i.Film.Cena);
         }
 
+        public static int GetCartQuantity(ISession session)
+        {
+            var cart = GetItems(session);
+
+            return cart.Sum(item => item.Ilosc);
+        }
+
         public static void AddToCart(ISession session, FilmyContext db, int id)
         {
             var cart = GetItems(session);

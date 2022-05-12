@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TISklep.DAL;
+using TISklep.Models.Identity;
 
 namespace TISklep
 {
@@ -27,7 +28,18 @@ namespace TISklep
         {
             services.AddControllersWithViews();
 
+            services.AddIdentity<AppUser, AppRole>(options =>
+            {
+                options.Password.RequiredLength = 4;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<IdentityContext>();
+
             services.AddDbContext<FilmyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("FilmyCS")));
+
+            services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("FilmyCS")));
 
             services.AddSession();
         }
@@ -51,6 +63,8 @@ namespace TISklep
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseSession();
 

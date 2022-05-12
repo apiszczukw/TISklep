@@ -10,19 +10,33 @@
         }
         <a href="@Url.Action("WszystkieFilmy", "Filmy")" class="menu-link"> Wszystkie </a>
         <a href="@Url.Action("Index", "Koszyk")" class="menu-link">
-            &#128717; (@ViewBag.quantity)
+            &#128717; (<span id="cartQuantity">@ViewBag.quantity</span>)
         </a>
-
+        <a href="@Url.Action("Zarejestruj", "Account")" class="menu-link">
+            Rejestracja
+        </a>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <a href="@Url.Action("Zaloguj", "Account")" class="menu-link">
+                Logowanie
+            </a>
+        }
+        else
+        {
+            <a href="@Url.Action("Wyloguj", "Account")" class="menu-link">
+                @User.Identity.Name, Wyloguj
+            </a>
+        }
 
         @using (Html.BeginForm("Szukaj", "Filmy"))
         {
-        <div class="input-group">
-            <div class="form-outline">
-                <input type="search" class="form-control" name="fraza"/>
-                
+            <div class="input-group">
+                <div class="form-outline">
+                    <input type="search" class="form-control" name="fraza" />
+
+                </div>
+                <button class="btn btn-primary" type="submit">Szukaj</button>
             </div>
-            <button class="btn btn-primary" type="submit">Szukaj</button>
-        </div>
         }
     </div>
 </header>
